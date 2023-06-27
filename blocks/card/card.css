@@ -1,5 +1,5 @@
 .card {
-    max-width: 282px;
+    min-width: 282px;
     height: 361px;
     width: 100%;
     margin: 0 auto;
