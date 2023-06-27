@@ -1,0 +1,9 @@
+.card {
+    max-width: 282px;
+    height: 361px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    color: #000;
+}
