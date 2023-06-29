@@ -19,7 +19,7 @@
                 <div class="profile__avatar"></div>
                 <div class="profile__info">
                     <div class="profile__name-container">
-                        <h2 class="profile__name">Жак-Ив Кусто</h2>
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
                         <button type="button" class="button profile__button-edit"
                             title="Редактировать профиль"></button>
                     </div>
@@ -31,9 +31,9 @@
                 <ul class="cards-grid__list">
                     <li class="card">
                         <img src="https://images.unsplash.com/photo-1643718249935-cb148dc74b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-                            alt="Байкал" class="card__image">
+                            alt="Санкт-Петербург" class="card__image">
                         <div class="card__description">
-                            <h3 class="card__name">Санкт-Петербург</h3>
+                            <h2 class="card__name">Санкт-Петербург</h2>
                             <button type="button" class="button card__button-like" title="Нравится"></button>
                         </div>
                     </li>
@@ -41,15 +41,15 @@
                         <img src="https://images.unsplash.com/photo-1594652071880-3484b086d143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
                             alt="Выборг" class="card__image">
                         <div class="card__description">
-                            <h3 class="card__name">Выборг</h3>
+                            <h2 class="card__name">Выборг</h2>
                             <button type="button" class="button card__button-like" title="Нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="https://images.unsplash.com/photo-1636622407062-7b9ea2967a75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=770&q=80"
-                            alt="Байкал" class="card__image">
+                            alt="Великий Новгород" class="card__image">
                         <div class="card__description">
-                            <h3 class="card__name">Великий Новгород</h3>
+                            <h2 class="card__name">Великий Новгород</h2>
                             <button type="button" class="button card__button-like" title="Нравится"></button>
                         </div>
                     </li>
@@ -57,23 +57,23 @@
                         <img src="https://images.unsplash.com/photo-1552735855-557bdba3961a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=778&q=80"
                             alt="Байкал" class="card__image">
                         <div class="card__description">
-                            <h3 class="card__name">Байкал</h3>
+                            <h2 class="card__name">Байкал</h2>
                             <button type="button" class="button card__button-like" title="Нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="https://images.unsplash.com/photo-1650622174543-7a2599f5e970?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-                            alt="Байкал" class="card__image">
+                            alt="Роза Хутор" class="card__image">
                         <div class="card__description">
-                            <h3 class="card__name">Роза Хутор</h3>
+                            <h2 class="card__name">Роза Хутор</h2>
                             <button type="button" class="button card__button-like" title="Нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="https://images.unsplash.com/photo-1635538365672-95c0ea660111?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80"
-                            alt="Байкал" class="card__image">
+                            alt="Алтай" class="card__image">
                         <div class="card__description">
-                            <h3 class="card__name">Алтай</h3>
+                            <h2 class="card__name">Алтай</h2>
                             <button type="button" class="button card__button-like" title="Нравится"></button>
                         </div>
                     </li>
@@ -84,13 +84,16 @@
             <p class="footer__copyright">&#169; 2023. Анастасия Кулеш</p>
         </footer>
         <div class="popup">
-            <form class="popup__container">
-                <h3 class="popup__title">Редактировать профиль</h3>
-                <input name="name" type="text" class="popup__field popup__field-name" placeholder="Имя">
-                <input name="description" type="text" class="popup__field popup__field-descriprion" placeholder="Род деятельности">
-                <button type="submit" class="button popup__button-save" title="Сохранить">Сохранить</button>
+            <div class="popup__container">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form name="editProfileForm" class="popup__form">
+                    <input name="name" type="text" class="popup__field popup__field-name" placeholder="Имя">
+                    <input name="description" type="text" class="popup__field popup__field-descriprion"
+                        placeholder="Род деятельности">
+                    <button type="submit" class="button popup__button-save" title="Сохранить">Сохранить</button>
+                </form>
                 <button type="button" class="button popup__button-close" title="Закрыть"></button>
-            </form>
+            </div>
         </div>
     </div>
     <script src="scripts/script.js"></script>
