@@ -9,3 +9,11 @@
     line-height: 16.94px;
     display: block;
 }
+
+.popup__field:first-of-type {
+    margin-top: 49px;
+}
+
+.popup__field:last-of-type {
+    margin-top: 31px;
+}

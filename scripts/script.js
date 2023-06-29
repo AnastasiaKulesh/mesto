@@ -1,14 +1,14 @@
 const page = document.querySelector('.page');
 const popup = page.querySelector(".popup");
-const popupForm = popup.querySelector('.popup__container');
+const popupForm = popup.querySelector('.popup__form');
 const editButton = page.querySelector(".profile__button-edit");
-const closeButton = popupForm.querySelector(".popup__button-close");
+const closeButton = popup.querySelector(".popup__button-close");
 const saveButton = popupForm.querySelector(".popup__button-save");
 
 let infoProfileName = page.querySelector('.profile__name');
 let infoProfileDescription = document.querySelector('.profile__description');
-let popupInfoInputName = popupForm.querySelector('.popup__field-name');
-let popupInfoInputDescription = popupForm.querySelector('.popup__field-descriprion');
+let popupInfoInputName = popupForm.querySelector('.popup__field_name');
+let popupInfoInputDescription = popupForm.querySelector('.popup__field_descriprion');
 
 // Функция открытия popup
 function openPopup(popup) {
