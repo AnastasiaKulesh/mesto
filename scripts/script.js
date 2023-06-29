@@ -3,30 +3,40 @@ const popup = page.querySelector(".popup");
 const popupForm = popup.querySelector('.popup__container');
 const editButton = page.querySelector(".profile__button-edit");
 const closeButton = popupForm.querySelector(".popup__button-close");
+const saveButton = popupForm.querySelector(".popup__button-save");
 
-const infoProfileName = page.querySelector('.profile__name');
-const infoProfileDescription = document.querySelector('.profile__description');
-
-const popupInfoInputName = popupForm.querySelector('.popup__field-name');
-const popupInfoInputDescription = popupForm.querySelector('.popup__field-descriprion');
-
-/* console.log(infoProfileDescription);
-console.log(popupInfoInputDescription); */
-
-// Запись в popup текущих данных пользователя
-popupInfoInputName.value = infoProfileName.textContent;
-popupInfoInputDescription.value = infoProfileDescription.textContent;
+let infoProfileName = page.querySelector('.profile__name');
+let infoProfileDescription = document.querySelector('.profile__description');
+let popupInfoInputName = popupForm.querySelector('.popup__field-name');
+let popupInfoInputDescription = popupForm.querySelector('.popup__field-descriprion');
 
 // Функция открытия popup
 function openPopup(popup) {
+  popupInfoInputName.value = infoProfileName.textContent;
+  popupInfoInputDescription.value = infoProfileDescription.textContent; 
   popup.classList.add("popup_opened");
 }
 
 // Функция закрытия popup
 function closePopup(popup) {
-    popup.classList.remove("popup_opened");
-  }
+  popup.classList.remove("popup_opened");
+}
 
-// Открытие/закрытие popup по нажатию кнопки
+// Функция обработки введенных данных
+function handleFormSubmit (event) {
+  event.preventDefault();                                           
+   
+  infoProfileName.textContent = popupInfoInputName.value;
+  infoProfileDescription.textContent = popupInfoInputDescription.value;
+
+  closePopup(popup);
+}
+
+// Открытие popup по нажатию кнопки
 editButton.addEventListener("click", () => openPopup(popup));
+
+// Закрытие popup по нажатию кнопки
 closeButton.addEventListener("click", () => closePopup(popup));
+
+// Сохранение inputs и закрытие popup
+popupForm.addEventListener('submit', handleFormSubmit); 
