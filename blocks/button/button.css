@@ -5,7 +5,3 @@
     background-color: transparent;
     cursor: pointer;
 }
-
-.button:hover {
-    opacity: 0.6;
-}
