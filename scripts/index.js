@@ -7,8 +7,8 @@ const saveButton = popupForm.querySelector('.popup__button-save');
 
 let infoProfileName = page.querySelector('.profile__name');
 let infoProfileDescription = document.querySelector('.profile__description');
-let popupInfoInputName = popupForm.querySelector('.popup__field_name');
-let popupInfoInputDescription = popupForm.querySelector('.popup__field_descriprion');
+let popupInfoInputName = popupForm.querySelector('.popup__field_type_name');
+let popupInfoInputDescription = popupForm.querySelector('.popup__field_type_descriprion');
 
 // Функция открытия popup
 function openPopup(popup) {
