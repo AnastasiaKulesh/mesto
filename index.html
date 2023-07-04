@@ -28,56 +28,7 @@
                 <button type="button" class="button profile__button-add" title="Добавить карточку"></button>
             </section>
             <section class="cards-grid">
-                <ul class="cards-grid__list">
-                    <li class="card">
-                        <img src="https://images.unsplash.com/photo-1643718249935-cb148dc74b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-                            alt="Санкт-Петербург" class="card__image">
-                        <div class="card__description">
-                            <h2 class="card__name">Санкт-Петербург</h2>
-                            <button type="button" class="button card__button-like" title="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="https://images.unsplash.com/photo-1594652071880-3484b086d143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-                            alt="Выборг" class="card__image">
-                        <div class="card__description">
-                            <h2 class="card__name">Выборг</h2>
-                            <button type="button" class="button card__button-like" title="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="https://images.unsplash.com/photo-1636622407062-7b9ea2967a75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=770&q=80"
-                            alt="Великий Новгород" class="card__image">
-                        <div class="card__description">
-                            <h2 class="card__name">Великий Новгород</h2>
-                            <button type="button" class="button card__button-like" title="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="https://images.unsplash.com/photo-1552735855-557bdba3961a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=778&q=80"
-                            alt="Байкал" class="card__image">
-                        <div class="card__description">
-                            <h2 class="card__name">Байкал</h2>
-                            <button type="button" class="button card__button-like" title="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="https://images.unsplash.com/photo-1650622174543-7a2599f5e970?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-                            alt="Роза Хутор" class="card__image">
-                        <div class="card__description">
-                            <h2 class="card__name">Роза Хутор</h2>
-                            <button type="button" class="button card__button-like" title="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="https://images.unsplash.com/photo-1635538365672-95c0ea660111?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80"
-                            alt="Алтай" class="card__image">
-                        <div class="card__description">
-                            <h2 class="card__name">Алтай</h2>
-                            <button type="button" class="button card__button-like" title="Нравится"></button>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="cards-grid__list"></ul>
             </section>
         </main>
         <footer class="footer">
@@ -96,6 +47,18 @@
             </div>
         </div>
     </div>
+    <template id="card-template">
+        <li class="card">
+            <img src="#" alt="" class="card__image">
+            <div class="card__description">
+                <h2 class="card__name"></h2>
+                <div class="card__like-group">
+                    <button class="button card__button-like" title="Нравится">
+                    </button>
+                </div>
+            </div>
+        </li>
+    </template>
     <script src="scripts/index.js"></script>
 </body>
 
