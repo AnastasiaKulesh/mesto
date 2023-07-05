@@ -34,7 +34,7 @@
         <footer class="footer">
             <p class="footer__copyright">&#169; 2023. Анастасия Кулеш</p>
         </footer>
-        <div class="popup">
+        <div class="popup popup_type_editProfile">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form name="editProfileForm" class="popup__form">
@@ -42,6 +42,18 @@
                     <input name="description" type="text" class="popup__field popup__field_type_descriprion"
                         placeholder="Род деятельности">
                     <button type="submit" class="button popup__button-save" title="Сохранить">Сохранить</button>
+                </form>
+                <button type="button" class="button popup__button-close" title="Закрыть"></button>
+            </div>
+        </div>
+        <div class="popup popup_type_add-card">
+            <div class="popup__container">
+                <h2 class="popup__title">Новое место</h2>
+                <form name="addCard" class="popup__form">
+                    <input name="name" type="text" class="popup__field popup__field_type_name" placeholder="Название">
+                    <input name="description" type="text" class="popup__field popup__field_type_descriprion"
+                        placeholder="Ссылка на картинку">
+                    <button type="submit" class="button popup__button-save" title="Сохранить">Создать</button>
                 </form>
                 <button type="button" class="button popup__button-close" title="Закрыть"></button>
             </div>
