@@ -7,6 +7,6 @@
     overflow: hidden;
 }
 
-.button:hover {
+.card__button-like:hover {
     opacity: 0.5;
 }

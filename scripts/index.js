@@ -83,20 +83,28 @@ const cardsList = document.querySelector('.cards-grid__list');
 
 // Создание карточки из массива
 function renderCard(name, link) {
-  const cardElement = cardTemplate.cloneNode(true);
+  const cardCloneTemplate = cardTemplate.cloneNode(true);
+  const cardElement = cardCloneTemplate.querySelector('.card');
   const nameElement = cardElement.querySelector('.card__name');
   const linkElement = cardElement.querySelector('.card__image');
   const likeButtomElement = cardElement.querySelector('.card__button-like');
+  const deleteButtonElement = cardElement.querySelector('.card__button-trash');
 
   nameElement.textContent = name;
   linkElement.src = link;
   linkElement.alt = name;
 
-  likeButtomElement.addEventListener('click', function (event) {
+  // Добавить лайк
+  likeButtomElement.addEventListener('click', function(event) {
     event.target.classList.toggle('card__button-like_active');
   });
 
-  return cardElement;
+  // Удалить карточку
+  deleteButtonElement.addEventListener('click', () => {
+    cardElement.remove();  
+  });
+
+  return cardCloneTemplate;
 }
 
 // Функция обработки введенных данных новой карточки
@@ -130,8 +138,6 @@ initialCards.forEach(function(item) {
   const card = renderCard(item.name, item.link);
   addCard(card, 'append');
 });
-
-
 
 
 // Открытие popup Добавления карточки по нажатию кнопки
