@@ -86,11 +86,16 @@ function renderCard(name, link) {
   const cardElement = cardTemplate.cloneNode(true);
   const nameElement = cardElement.querySelector('.card__name');
   const linkElement = cardElement.querySelector('.card__image');
+  const likeButtomElement = cardElement.querySelector('.card__button-like');
 
   nameElement.textContent = name;
   linkElement.src = link;
   linkElement.alt = name;
-  
+
+  likeButtomElement.addEventListener('click', function (event) {
+    event.target.classList.toggle('card__button-like_active');
+  });
+
   return cardElement;
 }
 
@@ -125,6 +130,8 @@ initialCards.forEach(function(item) {
   const card = renderCard(item.name, item.link);
   addCard(card, 'append');
 });
+
+
 
 
 // Открытие popup Добавления карточки по нажатию кнопки
