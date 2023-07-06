@@ -1,11 +1,11 @@
 .profile__info {
-    max-width: calc(100% - 180px);
-    min-width: 73px;
-    margin: 0 0 0 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    flex: 1;
+  max-width: calc(100% - 180px);
+  min-width: 73px;
+  margin: 0 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  flex: 1;
 }
 
 

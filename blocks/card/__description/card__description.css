@@ -1,5 +1,4 @@
 .card__description {
-    /* max-width: 241px; */
     width: calc(100% - 42px);
     margin: 22px 0px 0px 21px;
     align-items: center;

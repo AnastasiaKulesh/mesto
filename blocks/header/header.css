@@ -12,7 +12,7 @@
     .header {
         width: calc(100% - 2*27px);
     }
-  }
+}
 
 @media screen and (max-width: 440px) {
     .header {
@@ -20,4 +20,4 @@
         min-height: 56px;
         margin-top: 28px;
     }
-  }
+}
