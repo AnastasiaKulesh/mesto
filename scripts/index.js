@@ -124,6 +124,14 @@ function addCard(element, position = 'prepend') {
   }
 }
 
+// Функция закрытия popup через Esc
+function closePopupEsc(event) {
+  if (event.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
 
 
 
@@ -153,3 +161,6 @@ popupFormAddCard.addEventListener('submit', handleAddNewCardFormSubmit);
 
 // Закрыть popup с фотографией
 buttonClosePopupImage.addEventListener('click', () => closePopup(popupImage));
+
+// Слушатель для закрытия popup через Esc
+document.addEventListener('keydown', closePopupEsc);

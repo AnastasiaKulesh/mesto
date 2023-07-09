@@ -62,7 +62,6 @@ function setEventListener(formElement, config) {
     toggleButtonState(buttonSubmitElement, formElement.checkValidity(), config);
 
     [...inputList].forEach(function(inputElement) {
-        console.log('inputElement.validity: ', inputElement.validity);
         inputElement.addEventListener('input', function() {
             toggleButtonState(buttonSubmitElement, formElement.checkValidity(), config);
             checkInputValidity(inputElement, formElement, config);
@@ -73,8 +72,6 @@ function setEventListener(formElement, config) {
         evt.preventDefault();
 
         if (!formElement.checkValidity()) return;
-        
-        console.log('Форма отправлена');
     })
 }
 
