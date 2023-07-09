@@ -1,13 +1,7 @@
 .popup__field {
     width: 100%;
-    border: none;
-    border-bottom: 1px solid #00000033;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 8px;
-    font-size: 14px;
-    line-height: 16.94px;
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .popup__field:first-of-type {
@@ -15,5 +9,5 @@
 }
 
 .popup__field:last-of-type {
-    margin-top: 31px;
+    margin-top: 13px;
 }

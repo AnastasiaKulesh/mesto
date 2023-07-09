@@ -37,8 +37,8 @@ const closeButton = popup1.querySelector('.popup__button-close');
 
 let infoProfileName = page.querySelector('.profile__name');
 let infoProfileDescription = document.querySelector('.profile__description');
-let popupInfoInputName = popupFormEditProfile.querySelector('.popup__field_type_name');
-let popupInfoInputDescription = popupFormEditProfile.querySelector('.popup__field_type_descriprion');
+let popupInfoInputName = popupFormEditProfile.querySelector('.popup__input_type_name');
+let popupInfoInputDescription = popupFormEditProfile.querySelector('.popup__input_type_descriprion');
 
 // Template карточки
 const cardTemplate = document.querySelector('#card-template').content;
@@ -125,8 +125,8 @@ function renderCard(name, link) {
 function handleFormSubmitAdd (event) {
   event.preventDefault();                                           
   
-  const popupAddCardInputName = popupFormAddCard.querySelector('.popup__field_type_name');
-  const popupAddCardInputLink = popupFormAddCard.querySelector('.popup__field_type_descriprion');
+  const popupAddCardInputName = popupFormAddCard.querySelector('.popup__input_type_name');
+  const popupAddCardInputLink = popupFormAddCard.querySelector('.popup__input_type_descriprion');
 
   const card = renderCard(popupAddCardInputName.value, popupAddCardInputLink.value);
   addCard(card, 'prepend');
