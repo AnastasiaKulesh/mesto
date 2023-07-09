@@ -132,6 +132,12 @@ function closePopupEsc(event) {
   }
 }
 
+// Функция закрытия popup через overlay
+function closePopupOverlay(event) {
+  if (event.target.classList.contains('popup')) {
+    closePopup(event.target);
+  }
+}
 
 
 
@@ -164,3 +170,6 @@ buttonClosePopupImage.addEventListener('click', () => closePopup(popupImage));
 
 // Слушатель для закрытия popup через Esc
 document.addEventListener('keydown', closePopupEsc);
+
+// Слушатель для закрытия popup через Overlay
+document.addEventListener('click', closePopupOverlay);
