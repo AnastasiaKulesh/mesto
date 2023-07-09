@@ -66,12 +66,12 @@ function openProfilePopup() {
 // Функция заполнения полей формы данными текущего пользователя
 function fillInputFormProfile() {
   popupInfoInputName.value = infoProfileName.textContent;
-  popupInfoInputDescription.value = infoProfileDescription.textContent; 
+  popupInfoInputDescription.value = infoProfileDescription.textContent;
 }
 
 // Функция обработки введенных данных пользователя
 function handleProfileFormSubmit (event) {
-  event.preventDefault();                                           
+  event.preventDefault();
    
   infoProfileName.textContent = popupInfoInputName.value;
   infoProfileDescription.textContent = popupInfoInputDescription.value;
@@ -118,7 +118,7 @@ function createCard(cardData) {
 
 // Функция обработки введенных данных новой карточки
 function handleAddNewCardFormSubmit (event) {
-  event.preventDefault();                  
+  event.preventDefault();
 
   const popupAddNewCardInputInfo = {name: popupAddNewCardInputName.value, link: popupAddNewCardInputLink.value};
   const card = createCard(popupAddNewCardInputInfo);
@@ -131,8 +131,8 @@ function handleAddNewCardFormSubmit (event) {
 
 // Функция добавление карточки
 function addCard(element, position = 'prepend') {
-  switch (position){
-    case 'prepend': 
+  switch (position) {
+    case 'prepend':
       cardsList.prepend(element);
       break;
     case 'append':
@@ -156,7 +156,7 @@ buttonEditProfile.addEventListener('click', openProfilePopup);
 buttonClosePopupProfile.addEventListener('click', () => closePopup(popupProfile));
 
 // Сохранение inputs в форме и закрытие popupProfile
-popupFormEditProfile.addEventListener('submit', handleProfileFormSubmit); 
+popupFormEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 // Открытие popup Добавления карточки по нажатию кнопки
 buttonAddNewCard.addEventListener('click', () => openPopup(popupAddNewCard));
@@ -165,7 +165,7 @@ buttonAddNewCard.addEventListener('click', () => openPopup(popupAddNewCard));
 buttonCloseAddCard.addEventListener('click', () => closePopup(popupAddNewCard));
 
 // Сохранение inputs и закрытие popup Добавления карточки
-popupFormAddCard.addEventListener('submit', handleAddNewCardFormSubmit); 
+popupFormAddCard.addEventListener('submit', handleAddNewCardFormSubmit);
 
 // Закрыть popup с фотографией
 buttonClosePopupImage.addEventListener('click', () => closePopup(popupImage));
