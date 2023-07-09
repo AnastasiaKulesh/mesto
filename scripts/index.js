@@ -18,6 +18,9 @@ const cardsList = document.querySelector('.cards-grid__list');
 // Добавление карточки
 const popupAddNewCard = page.querySelector('.popup_type_add-card');
 const popupFormAddCard = popupAddNewCard.querySelector('[name="addCard"]');
+const popupAddNewCardInputName = popupFormAddCard.querySelector('.popup__field_type_name');
+const popupAddNewCardInputLink = popupFormAddCard.querySelector('.popup__field_type_descriprion');
+const popupAddNewCardInputInfo = {name: popupAddNewCardInputName.value, link: popupAddNewCardInputLink.value};
 const buttonAddNewCard = page.querySelector('.profile__button-add');
 const buttonCloseAddCard = popupAddNewCard.querySelector('.popup__button-close');
 
@@ -102,10 +105,6 @@ function createCard(cardData) {
 // Функция обработки введенных данных новой карточки
 function handleAddNewCardFormSubmit (event) {
   event.preventDefault();                                           
-  
-  const popupAddNewCardInputName = popupFormAddCard.querySelector('.popup__field_type_name');
-  const popupAddNewCardInputLink = popupFormAddCard.querySelector('.popup__field_type_descriprion');
-  const popupAddNewCardInputInfo = {name: popupAddNewCardInputName.value, link: popupAddNewCardInputLink.value};
 
   const card = createCard(popupAddNewCardInputInfo);
   addCard(card, 'prepend');
