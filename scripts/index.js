@@ -2,13 +2,6 @@
 function openPopup(popup) {
   popup.classList.add("popup_opened");
 
-  // Добавление слушателя на popup (закрытие через Overlay и buttonClose)
-  popup.addEventListener("click", (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains("popup__button-close")) {
-      closePopup(popup);
-    }
-  });
-
   // Добавление слушателя для закрытия popup через Esc
   document.addEventListener("keydown", closePopupEsc);
 }
@@ -17,19 +10,18 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
 
-  // Удаление слушателя на popup (закрытие через Overlay и buttonClose)
-  popup.removeEventListener("click", (evt) => {
-    if (
-      evt.target === evt.currentTarget ||
-      evt.target.classList.contains("popup__button-close")
-    ) {
-      closePopup(popup);
-    }
-  });
-
   // Добавление слушателя для закрытия popup через Esc
   document.removeEventListener("keydown", closePopupEsc);
 }
+
+// Добавление слушателя для закрытия popup через Overlay и buttonClose для каждого из popup
+popups.forEach((popup) => {
+ popup.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')){
+   closePopup(popup);
+  }
+ });
+}); 
 
 // Функция закрытия popup через Esc
 function closePopupEsc(event) {
@@ -155,6 +147,3 @@ buttonAddNewCard.addEventListener("click", () => {
 
 // Сохранение inputs и закрытие popup Добавления карточки
 popupFormAddCard.addEventListener("submit", handleAddNewCardFormSubmit);
-
-// Закрыть popup с фотографией
-buttonClosePopupImage.addEventListener("click", () => closePopup(popupImage));
