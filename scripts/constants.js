@@ -26,6 +26,15 @@ const initialCards = [
     }
   ];
 
+  // Конфиг для валидации
+  const config = {
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    buttonSubmitSelector: ".popup__button-save",
+    buttonInactiveClass: "popup__button-save_disabled",
+    inputErrorClass: "popup__error_enabled",
+  };
+
 const page = document.querySelector('.page');
 const popups = document.querySelectorAll('.popup');
 

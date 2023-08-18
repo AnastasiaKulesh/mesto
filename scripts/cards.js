@@ -1,5 +1,7 @@
+import { openPopup } from './index.js';
+
 // Класс создания карточки с текстом и ссылкой на изображение
-class Card {
+export class Card {
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -61,7 +63,7 @@ class Card {
 }
 
 // Функция добавление карточки
-function addCard(listContainer, element, position = 'prepend') {
+export function addCard (listContainer, element, position = 'prepend') {
   switch (position) {
     case 'prepend':
       listContainer.prepend(element);

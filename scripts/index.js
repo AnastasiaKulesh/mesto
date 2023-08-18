@@ -1,5 +1,8 @@
+import { FormValidate } from './validation.js';
+import { Card, addCard } from './cards.js';
+
 // Функция открытия popup
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add("popup_opened");
 
   // Добавление слушателя для закрытия popup через Esc

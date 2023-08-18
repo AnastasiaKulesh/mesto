@@ -1,12 +1,4 @@
-const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  buttonSubmitSelector: ".popup__button-save",
-  buttonInactiveClass: "popup__button-save_disabled",
-  inputErrorClass: "popup__error_enabled",
-};
-
-class FormValidate {
+export class FormValidate {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
