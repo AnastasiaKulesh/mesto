@@ -1,91 +1,87 @@
 const config = {
-    formSelector: ".popup__form",
-    inputSelector: ".popup__input",
-    buttonSubmitSelector: ".popup__button-save",
-    buttonInactiveClass: "popup__button-save_disabled",
-    inputErrorClass: "popup__error_enabled",
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  buttonSubmitSelector: ".popup__button-save",
+  buttonInactiveClass: "popup__button-save_disabled",
+  inputErrorClass: "popup__error_enabled",
 };
 
+class FormValidate {
+  constructor(config, formElement) {
+    this._config = config;
+    this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    this._buttonSubmitElement = this._formElement.querySelector(this._config.buttonSubmitSelector);
+  }
 
-
-
-// Функция добавления отображения ошибки input
-function showError(inputElement, errorElement, config) {
-    errorElement.classList.add(config.inputErrorClass);
+  // Функция добавления отображения ошибки input
+  _showError(inputElement, errorElement) {
+    errorElement.classList.add(this._config.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
-}
+  }
 
-// Функция удаления отображения ошибки input
-function hideError(inputElement, errorElement, config) {
-    errorElement.classList.remove(config.inputErrorClass);
+  // Функция удаления отображения ошибки input
+  _hideError(inputElement, errorElement) {
+    errorElement.classList.remove(this._config.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
-}
+  }
 
-// Функция проверки валидности формы
-function checkInputValidity(inputElement, formElement, config) {
+  // Функция проверки валидности формы
+  _checkInputValidity(inputElement) {
     const isInputValid = inputElement.validity.valid;
-    const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+    const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
 
     if (!isInputValid) {
-        showError(inputElement, errorElement, config);
+      this._showError(inputElement, errorElement);
     } else {
-        hideError(inputElement, errorElement, config);
+      this._hideError(inputElement, errorElement);
     }
-}
+  }
 
-// Функция блокировки кнопки 
-function disableButton(buttonElement, config) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(config.buttonInactiveClass);
-}
+  // Функция блокировки кнопки
+  _disableButton() {
+    this._buttonSubmitElement.disabled = true;
+    this._buttonSubmitElement.classList.add(this._config.buttonInactiveClass);
+  }
 
-// Функция активности кнопки
-function enableButton(buttonElement, config) {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(config.buttonInactiveClass);
-}
+  // Функция активности кнопки
+  _enableButton() {
+    this._buttonSubmitElement.disabled = false;
+    this._buttonSubmitElement.classList.remove(this._config.buttonInactiveClass);
+  }
 
-// Функция переключения блокировки кнопки submit
-function toggleButtonState(buttonElement, isActive, config) {
+  // Функция переключения блокировки кнопки submit
+  _toggleButtonState() {
+    const isActive = this._formElement.checkValidity();
+
     if (!isActive) {
-        disableButton(buttonElement, config);
+      this._disableButton();
     } else {
-        enableButton(buttonElement, config);
+      this._enableButton();
     }
-}
+  }
 
-// Функция установки слушателей
-function setEventListener(formElement, config) {
-    const inputList = formElement.querySelectorAll(config.inputSelector);
-    const buttonSubmitElement = formElement.querySelector(config.buttonSubmitSelector);
-
-    toggleButtonState(buttonSubmitElement, formElement.checkValidity(), config);
-
-    [...inputList].forEach(function(inputElement) {
-        inputElement.addEventListener('input', function() {
-            toggleButtonState(buttonSubmitElement, formElement.checkValidity(), config);
-            checkInputValidity(inputElement, formElement, config);
-        })
-    })
-
-    formElement.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-
-        if (!formElement.checkValidity()) return;
-    })
-}
-
-// Поиск и перебор всех форм
-function enableValidation(config) {
-    const formsList = document.querySelectorAll(config.formSelector);
-
-    [...formsList].forEach(function (formElement) {
-      setEventListener(formElement, config);
+  // Функция установки слушателей
+  _setEventListener() {
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => {
+        this._checkInputValidity(inputElement);;
+        this._toggleButtonState();
+      });
     });
-};
 
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
 
+      if (!this._formElement.checkValidity()) return;
+    });
 
+    this._toggleButtonState();
+  }
+  
 
-// Вызов формы
-enableValidation(config);
+  // Поиск и перебор всех форм
+  enableValidation() {
+    this._setEventListener();
+  }
+}

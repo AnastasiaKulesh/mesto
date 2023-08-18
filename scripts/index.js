@@ -57,6 +57,7 @@ function handleProfileFormSubmit(event) {
   infoProfileName.textContent = popupInfoInputName.value;
   infoProfileDescription.textContent = popupInfoInputDescription.value;
 
+  
   closePopup(popupProfile);
 }
 
@@ -76,6 +77,9 @@ function handleAddNewCardFormSubmit(event) {
   popupFormAddCard.reset();
 }
 
+const formEditProfileValidate = new FormValidate(config, popupFormEditProfile).enableValidation();
+const formAddCardValidate = new FormValidate(config, popupFormAddCard).enableValidation();
+
 // Открытие popupProfile по нажатию кнопки
 buttonEditProfile.addEventListener("click", openProfilePopup);
 
@@ -84,7 +88,7 @@ popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
 
 // Открытие popup Добавления карточки по нажатию кнопки
 buttonAddNewCard.addEventListener("click", () => {
-  disableButton(buttonSubmitAddCard, config);
+  // disableButton(buttonSubmitAddCard, config);
   openPopup(popupAddNewCard);
 });
 
