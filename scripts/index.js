@@ -1,5 +1,5 @@
 import { FormValidate } from './FormValidate.js';
-import { Card, addCard } from './Card.js';
+import { Card } from './Card.js';
 
 // Функция открытия popup
 export function openPopup(popup) {
@@ -60,7 +60,6 @@ function handleProfileFormSubmit(event) {
   infoProfileName.textContent = popupInfoInputName.value;
   infoProfileDescription.textContent = popupInfoInputDescription.value;
 
-  
   closePopup(popupProfile);
 }
 
@@ -79,6 +78,24 @@ function handleAddNewCardFormSubmit(event) {
   closePopup(popupAddNewCard);
   popupFormAddCard.reset();
 }
+
+// Функция добавление карточки
+function addCard (listContainer, element, position = 'prepend') {
+  switch (position) {
+    case 'prepend':
+      listContainer.prepend(element);
+      break;
+    case 'append':
+      listContainer.append(element);
+  }
+}
+
+initialCards.forEach(function (item) {
+  // const card = createCard(item);
+  const card = new Card(item, '#card-template').createCard();
+  // addCard(card, 'append');
+  addCard(cardsList, card, 'append');
+});
 
 const formEditProfileValidate = new FormValidate(config, popupFormEditProfile).enableValidation();
 const formAddCardValidate = new FormValidate(config, popupFormAddCard).enableValidation();
