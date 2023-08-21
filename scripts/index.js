@@ -1,5 +1,5 @@
-import { FormValidate } from './validation.js';
-import { Card, addCard } from './cards.js';
+import { FormValidate } from './FormValidate.js';
+import { Card, addCard } from './Card.js';
 
 // Функция открытия popup
 export function openPopup(popup) {
