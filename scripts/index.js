@@ -53,7 +53,7 @@ function closePopupOverlay(event) {
 function openProfilePopup() {
   fillInputFormProfile();
   openPopup(popupProfile);
-  formEditProfileValidate.toggleButtonState();
+  formEditProfileValidate.resetValidate();
 }
 
 // Функция заполнения полей формы данными текущего пользователя
@@ -72,6 +72,13 @@ function handleProfileFormSubmit(event) {
   closePopup(popupProfile);
 }
 
+// Функция открытия popupAddCard
+function openAddNewCardPopup() {
+  openPopup(popupAddNewCard);
+  popupFormAddCard.reset();
+  formAddCardValidate.resetValidate();
+}
+
 // Функция обработки введенных данных новой карточки
 function handleAddNewCardFormSubmit(event) {
   event.preventDefault();
@@ -86,7 +93,7 @@ function handleAddNewCardFormSubmit(event) {
   addCard(cardsList, card, "prepend");
   closePopup(popupAddNewCard);
   popupFormAddCard.reset();
-  formAddCardValidate.toggleButtonState();
+  formAddCardValidate.resetValidate();
 }
 
 // Функция добавление карточки
@@ -113,9 +120,7 @@ buttonEditProfile.addEventListener("click", openProfilePopup);
 popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
 
 // Открытие popup Добавления карточки по нажатию кнопки
-buttonAddNewCard.addEventListener("click", () => {
-  openPopup(popupAddNewCard);
-});
+buttonAddNewCard.addEventListener("click", openAddNewCardPopup);
 
 // Сохранение inputs и закрытие popup Добавления карточки
 popupFormAddCard.addEventListener("submit", handleAddNewCardFormSubmit);

@@ -6,19 +6,19 @@ export default class FormValidate {
     this._buttonSubmitElement = this._formElement.querySelector(this._config.buttonSubmitSelector);
   }
 
-  // Функция добавления отображения ошибки input
+  // Метод добавления отображения ошибки input
   _showError(inputElement, errorElement) {
     errorElement.classList.add(this._config.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
   }
 
-  // Функция удаления отображения ошибки input
+  // Метод удаления отображения ошибки input
   _hideError(inputElement, errorElement) {
     errorElement.classList.remove(this._config.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
   }
 
-  // Функция проверки валидности формы
+  // Метод проверки валидности формы
   _checkInputValidity(inputElement) {
     const isInputValid = inputElement.validity.valid;
     const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
@@ -28,6 +28,15 @@ export default class FormValidate {
     } else {
       this._hideError(inputElement, errorElement);
     }
+  }
+
+  // Метод очистки ошибок и управление кнопкой при валидности формы
+  resetValidate() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
+      this._hideError(inputElement, errorElement);
+    });
   }
 
   // Функция блокировки кнопки
@@ -43,7 +52,7 @@ export default class FormValidate {
   }
 
   // Функция переключения блокировки кнопки submit
-  toggleButtonState() {
+  _toggleButtonState() {
     const isActive = this._formElement.checkValidity();
 
     if (!isActive) {
@@ -58,7 +67,7 @@ export default class FormValidate {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);;
-        this.toggleButtonState();
+        this._toggleButtonState();
       });
     });
 
@@ -68,7 +77,7 @@ export default class FormValidate {
       if (!this._formElement.checkValidity()) return;
     });
 
-    this.toggleButtonState();
+    this._toggleButtonState();
   }
   
 
