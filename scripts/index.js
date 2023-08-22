@@ -1,8 +1,16 @@
-import { FormValidate } from './FormValidate.js';
+import FormValidate from './FormValidate.js';
 import { Card } from './Card.js';
 
+
+const formEditProfileValidate = new FormValidate(config, popupFormEditProfile);
+const formAddCardValidate = new FormValidate(config, popupFormAddCard);
+
+formEditProfileValidate.enableValidation();
+formAddCardValidate.enableValidation();
+
+
 // Функция открытия popup
-export function openPopup(popup) {
+function openPopup(popup) {
   popup.classList.add("popup_opened");
 
   // Добавление слушателя для закрытия popup через Esc
@@ -45,6 +53,7 @@ function closePopupOverlay(event) {
 function openProfilePopup() {
   fillInputFormProfile();
   openPopup(popupProfile);
+  formEditProfileValidate.toggleButtonState();
 }
 
 // Функция заполнения полей формы данными текущего пользователя
@@ -72,11 +81,12 @@ function handleAddNewCardFormSubmit(event) {
     link: popupAddNewCardInputLink.value,
   };
 
-  const card = new Card(popupAddNewCardInputInfo, "#card-template").createCard();
+  const card = new Card(popupAddNewCardInputInfo, openPopup, "#card-template").createCard();
 
   addCard(cardsList, card, "prepend");
   closePopup(popupAddNewCard);
   popupFormAddCard.reset();
+  formAddCardValidate.toggleButtonState();
 }
 
 // Функция добавление карточки
@@ -91,14 +101,10 @@ function addCard (listContainer, element, position = 'prepend') {
 }
 
 initialCards.forEach(function (item) {
-  // const card = createCard(item);
-  const card = new Card(item, '#card-template').createCard();
-  // addCard(card, 'append');
+  const card = new Card(item, openPopup, '#card-template').createCard();
   addCard(cardsList, card, 'append');
 });
 
-const formEditProfileValidate = new FormValidate(config, popupFormEditProfile).enableValidation();
-const formAddCardValidate = new FormValidate(config, popupFormAddCard).enableValidation();
 
 // Открытие popupProfile по нажатию кнопки
 buttonEditProfile.addEventListener("click", openProfilePopup);
@@ -108,7 +114,6 @@ popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
 
 // Открытие popup Добавления карточки по нажатию кнопки
 buttonAddNewCard.addEventListener("click", () => {
-  // disableButton(buttonSubmitAddCard, config);
   openPopup(popupAddNewCard);
 });
 

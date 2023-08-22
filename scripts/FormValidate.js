@@ -1,4 +1,4 @@
-export class FormValidate {
+export default class FormValidate {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
@@ -43,7 +43,7 @@ export class FormValidate {
   }
 
   // Функция переключения блокировки кнопки submit
-  _toggleButtonState() {
+  toggleButtonState() {
     const isActive = this._formElement.checkValidity();
 
     if (!isActive) {
@@ -58,7 +58,7 @@ export class FormValidate {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);;
-        this._toggleButtonState();
+        this.toggleButtonState();
       });
     });
 
@@ -68,7 +68,7 @@ export class FormValidate {
       if (!this._formElement.checkValidity()) return;
     });
 
-    this._toggleButtonState();
+    this.toggleButtonState();
   }
   
 

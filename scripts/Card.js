@@ -1,10 +1,9 @@
-import { openPopup } from './index.js';
-
 // Класс создания карточки с текстом и ссылкой на изображение
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, openPopup, templateSelector) {
     this._name = data.name;
     this._link = data.link;
+    this._openPopup = openPopup;
     this._templateSelector = templateSelector;
   }
   
@@ -31,7 +30,7 @@ export class Card {
     popupImageElementPhoto.src = this._link;
     popupImageElementPhoto.alt = this._name;
     popupImageNameElement.textContent = this._name;
-    openPopup(popupImage);
+    this._openPopup(popupImage);
   }
 
   // Метод создания карточки
