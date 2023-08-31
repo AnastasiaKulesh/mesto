@@ -1,5 +1,6 @@
 import FormValidate from './FormValidate.js';
 import { Card } from './Card.js';
+import Section from './Section.js';
 
 
 const formEditProfileValidate = new FormValidate(config, popupFormEditProfile);
@@ -8,6 +9,17 @@ const formAddCardValidate = new FormValidate(config, popupFormAddCard);
 formEditProfileValidate.enableValidation();
 formAddCardValidate.enableValidation();
 
+// Добавление начальных карточек
+const cardLists = new Section({ 
+  items: initialCards, 
+  renderer: (element) => {
+    const card = new Card(element, openPopup, '#card-template').createCard();
+    cardLists.addItem(card, 'append');
+  }
+},
+'.cards-grid__list');
+
+cardLists.renderItems();
 
 // Функция открытия popup
 function openPopup(popup) {
@@ -107,10 +119,10 @@ function addCard (listContainer, element, position = 'prepend') {
   }
 }
 
-initialCards.forEach(function (item) {
-  const card = new Card(item, openPopup, '#card-template').createCard();
-  addCard(cardsList, card, 'append');
-});
+// initialCards.forEach(function (item) {
+//   const card = new Card(item, openPopup, '#card-template').createCard();
+//   // addCard(cardsList, card, 'append');
+// });
 
 
 // Открытие popupProfile по нажатию кнопки
