@@ -1,9 +1,9 @@
 // Класс создания карточки с текстом и ссылкой на изображение
-export class Card {
-  constructor(data, openPopup, templateSelector) {
+export default class Card {
+  constructor({ data, handleClick }, templateSelector) {
     this._name = data.name;
     this._link = data.link;
-    this._openPopup = openPopup;
+    this._handleClick = handleClick;
     this._templateSelector = templateSelector;
   }
   
@@ -30,7 +30,7 @@ export class Card {
     popupImageElementPhoto.src = this._link;
     popupImageElementPhoto.alt = this._name;
     popupImageNameElement.textContent = this._name;
-    this._openPopup(popupImage);
+    this._handleClick(popupImage);
   }
 
   // Метод создания карточки
@@ -53,7 +53,7 @@ export class Card {
     this._buttonDeleteElement.addEventListener('click', () => this._deleteCard());
   
     // Слушатель кнопки открытия popup с фотографией карточки
-    this._linkElement.addEventListener('click', () => this._openCardPopup());
+    this._linkElement.addEventListener('click', () => this._handleClick(this._name, this._link));
   
     return  this._cardCloneTemplate;
   }

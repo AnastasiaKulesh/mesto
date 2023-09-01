@@ -1,138 +1,91 @@
 import FormValidate from './FormValidate.js';
-import { Card } from './Card.js';
-import Section from './Section.js';
+import Card from './Card.js';
+import Section from './Section.js'; 
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
-
+// Экземпляры классов для валидации форм
 const formEditProfileValidate = new FormValidate(config, popupFormEditProfile);
 const formAddCardValidate = new FormValidate(config, popupFormAddCard);
 
 formEditProfileValidate.enableValidation();
 formAddCardValidate.enableValidation();
 
+// Экземпляры классов для popup с формами ввода
+const popupAddCardForm = new PopupWithForm(".popup_type_add-card", handleAddNewCardFormSubmit);
+const popupEditProfileForm = new PopupWithForm(".popup_type_editProfile", handleEditProfileFormSubmit);
+
+popupAddCardForm.setEventListeners();
+popupEditProfileForm.setEventListeners();
+
+// Экземпляр класса для popup с фотографией карточки
+const popupCardImage = new PopupWithImage(".popup-image");
+popupCardImage.setEventListeners();
+
+
 // Добавление начальных карточек
 const cardLists = new Section({ 
   items: initialCards, 
   renderer: (element) => {
-    const card = new Card(element, openPopup, '#card-template').createCard();
-    cardLists.addItem(card, 'append');
+    createCard(element, 'append');
   }
 },
 '.cards-grid__list');
 
 cardLists.renderItems();
 
-// Функция открытия popup
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
+// Экземпляр класса для данных пользователя
+const userInfo = new UserInfo({ 
+  nameSelector: '.profile__name', 
+  infoSelector: '.profile__description' 
+})
 
-  // Добавление слушателя для закрытия popup через Esc
-  document.addEventListener("keydown", closePopupEsc);
+
+// Функция открытия popup с фотографией карточки
+function handleCardClick(name, link) {
+  popupCardImage.open(link, name);
 }
 
-// Функция закрытия popup
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-
-  // Добавление слушателя для закрытия popup через Esc
-  document.removeEventListener("keydown", closePopupEsc);
+// Функция добавления карточки
+function createCard(dataCard, position = 'prepend') {
+  const card = new Card({
+    data: dataCard, 
+    handleClick: handleCardClick},
+    '#card-template').createCard();
+cardLists.addItem(card, position);
 }
 
-// Добавление слушателя для закрытия popup через Overlay и buttonClose для каждого из popup
-popups.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains("popup__button-close")) {
-      closePopup(popup);
-    }
-  });
-});
-
-// Функция закрытия popup через Esc
-function closePopupEsc(event) {
-  if (event.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-  }
+// Функция submit для добавления карточек
+function handleAddNewCardFormSubmit(dataCard) {
+  createCard(dataCard, "prepend");
+  popupAddCardForm.close();
 }
 
-// Функция закрытия popup через overlay
-function closePopupOverlay(event) {
-  if (event.target.classList.contains("popup")) {
-    closePopup(event.target);
-  }
-}
-
-// Функция открытия для редактирования popupProfile
-function openProfilePopup() {
-  fillInputFormProfile();
-  openPopup(popupProfile);
-  formEditProfileValidate.resetValidate();
-}
-
-// Функция заполнения полей формы данными текущего пользователя
-function fillInputFormProfile() {
-  popupInfoInputName.value = infoProfileName.textContent;
-  popupInfoInputDescription.value = infoProfileDescription.textContent;
-}
-
-// Функция обработки введенных данных пользователя
-function handleProfileFormSubmit(event) {
-  event.preventDefault();
-
-  infoProfileName.textContent = popupInfoInputName.value;
-  infoProfileDescription.textContent = popupInfoInputDescription.value;
-
-  closePopup(popupProfile);
+// Функция submit для добавления карточек
+function handleEditProfileFormSubmit(inputData) {
+  userInfo.setUserInfo(inputData);
+  popupEditProfileForm.close();
 }
 
 // Функция открытия popupAddCard
-function openAddNewCardPopup() {
-  openPopup(popupAddNewCard);
-  popupFormAddCard.reset();
-  formAddCardValidate.resetValidate();
+function handleOpenPopupAddNewCard() {
+  popupAddCardForm.open();
+  formAddCardValidate.resetValidate();  
 }
 
-// Функция обработки введенных данных новой карточки
-function handleAddNewCardFormSubmit(event) {
-  event.preventDefault();
-
-  const popupAddNewCardInputInfo = {
-    name: popupAddNewCardInputName.value,
-    link: popupAddNewCardInputLink.value,
-  };
-
-  const card = new Card(popupAddNewCardInputInfo, openPopup, "#card-template").createCard();
-
-  addCard(cardsList, card, "prepend");
-  closePopup(popupAddNewCard);
-  popupFormAddCard.reset();
-  formAddCardValidate.resetValidate();
+// Функция открытия для редактирования popupProfile
+function handleOpenProfilePopup() {
+  const { name, info} = userInfo.getUserInfo();
+  popupInfoInputName.value = name;
+  popupInfoInputDescription.value = info;
+  popupEditProfileForm.open();
+  formEditProfileValidate.resetValidate();
 }
-
-// Функция добавление карточки
-function addCard (listContainer, element, position = 'prepend') {
-  switch (position) {
-    case 'prepend':
-      listContainer.prepend(element);
-      break;
-    case 'append':
-      listContainer.append(element);
-  }
-}
-
-// initialCards.forEach(function (item) {
-//   const card = new Card(item, openPopup, '#card-template').createCard();
-//   // addCard(cardsList, card, 'append');
-// });
 
 
 // Открытие popupProfile по нажатию кнопки
-buttonEditProfile.addEventListener("click", openProfilePopup);
-
-// Сохранение inputs в форме и закрытие popupProfile
-popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
+buttonEditProfile.addEventListener("click", handleOpenProfilePopup);
 
 // Открытие popup Добавления карточки по нажатию кнопки
-buttonAddNewCard.addEventListener("click", openAddNewCardPopup);
-
-// Сохранение inputs и закрытие popup Добавления карточки
-popupFormAddCard.addEventListener("submit", handleAddNewCardFormSubmit);
+buttonAddNewCard.addEventListener("click", handleOpenPopupAddNewCard);
