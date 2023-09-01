@@ -1,10 +1,12 @@
+import '../vendor/normalize.css';
+import './index.css';
+
 import FormValidate from '../components/FormValidate.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js'; 
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-
 import {
   initialCards,
   config,
