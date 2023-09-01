@@ -1,5 +1,5 @@
 // Массив данных начальных карточек
-const initialCards = [
+export const initialCards = [
 {
     name: 'Санкт-Петербург',
     link: 'https://images.unsplash.com/photo-1643718249935-cb148dc74b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80'
@@ -27,7 +27,7 @@ const initialCards = [
   ];
 
   // Конфиг для валидации
-  const config = {
+export const config = {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
     buttonSubmitSelector: ".popup__button-save",
@@ -36,34 +36,20 @@ const initialCards = [
   };
 
 const page = document.querySelector('.page');
-const popups = document.querySelectorAll('.popup');
 
 // Редактирование профиля
 const popupProfile = page.querySelector('.popup_type_editProfile');
-const popupFormEditProfile = popupProfile.querySelector('[name="editProfileForm"]');
-const buttonEditProfile = page.querySelector('.profile__button-edit');
-const buttonClosePopupProfile = popupProfile.querySelector('.popup__button-close');
+export const popupFormEditProfile = popupProfile.querySelector('[name="editProfileForm"]');
+export const buttonEditProfile = page.querySelector('.profile__button-edit');
 
-const infoProfileName = page.querySelector('.profile__name');
-const infoProfileDescription = document.querySelector('.profile__description');
-const popupInfoInputName = popupFormEditProfile.querySelector('.popup__input_type_name');
-const popupInfoInputDescription = popupFormEditProfile.querySelector('.popup__input_type_description');
+export const popupInfoInputName = popupFormEditProfile.querySelector('.popup__input_type_name');
+export const popupInfoInputDescription = popupFormEditProfile.querySelector('.popup__input_type_description');
 
-// Template карточки
-const cardTemplate = document.querySelector('#card-template').content;
-const cardsList = document.querySelector('.cards-grid__list');
 
 // Добавление карточки
 const popupAddNewCard = page.querySelector('.popup_type_add-card');
-const popupFormAddCard = popupAddNewCard.querySelector('[name="addCard"]');
-const popupAddNewCardInputName = popupFormAddCard.querySelector('.popup__input_type_name');
-const popupAddNewCardInputLink = popupFormAddCard.querySelector('.popup__input_type_description');
-const buttonAddNewCard = page.querySelector('.profile__button-add');
-const buttonCloseAddCard = popupAddNewCard.querySelector('.popup__button-close');
-const buttonSubmitAddCard = popupAddNewCard.querySelector('.popup__button-save');
+export const popupFormAddCard = popupAddNewCard.querySelector('[name="addCard"]');
+export const buttonAddNewCard = page.querySelector('.profile__button-add');
 
 // Popup фотографии
 const popupImage = page.querySelector('.popup-image');
-const popupImageElementPhoto = popupImage.querySelector('.popup-image__image');
-const popupImageNameElement = popupImage.querySelector('.popup-image__name');
-const buttonClosePopupImage = popupImage.querySelector('.popup__button-close');

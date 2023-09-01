@@ -1,9 +1,20 @@
-import FormValidate from './FormValidate.js';
-import Card from './Card.js';
-import Section from './Section.js'; 
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+import FormValidate from '../components/FormValidate.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js'; 
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+
+import {
+  initialCards,
+  config,
+  popupFormEditProfile,
+  popupFormAddCard,
+  buttonEditProfile,
+  buttonAddNewCard,
+  popupInfoInputName,
+  popupInfoInputDescription
+} from '../utils/constants.js'
 
 // Экземпляры классов для валидации форм
 const formEditProfileValidate = new FormValidate(config, popupFormEditProfile);
