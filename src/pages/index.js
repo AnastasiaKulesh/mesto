@@ -77,7 +77,7 @@ function handleAddNewCardFormSubmit(dataCard) {
 
 // Функция submit для добавления карточек
 function handleEditProfileFormSubmit(inputData) {
-  userInfo.setUserInfo(inputData);
+  userInfo.setUserInfo({name: inputData['card-name'], info: inputData.info});
   popupEditProfileForm.close();
 }
 
