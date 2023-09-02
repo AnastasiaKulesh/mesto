@@ -7,6 +7,10 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import { 
+  Api,
+  api
+} from '../components/Api.js';
 import {
   initialCards,
   config,
@@ -37,21 +41,11 @@ const popupCardImage = new PopupWithImage(".popup-image");
 popupCardImage.setEventListeners();
 
 
-// Добавление начальных карточек
-const cardLists = new Section({ 
-  items: initialCards, 
-  renderer: (element) => {
-    createCard(element, 'append');
-  }
-},
-'.cards-grid__list');
-
-cardLists.renderItems();
-
 // Экземпляр класса для данных пользователя
 const userInfo = new UserInfo({ 
   nameSelector: '.profile__name', 
-  infoSelector: '.profile__description' 
+  infoSelector: '.profile__description',
+  avatarSelector: '.profile__avatar' 
 })
 
 
@@ -71,13 +65,17 @@ cardLists.addItem(card, position);
 
 // Функция submit для добавления карточек
 function handleAddNewCardFormSubmit(dataCard) {
-  createCard(dataCard, "prepend");
+  // createCard(dataCard, "prepend");
+  api.postNewCard(dataCard)
+    .then(() => createCard(dataCard, "prepend"))
   popupAddCardForm.close();
 }
 
-// Функция submit для добавления карточек
+// Функция submit для изменения данных пользователя
 function handleEditProfileFormSubmit(inputData) {
-  userInfo.setUserInfo({name: inputData['card-name'], info: inputData.info});
+  const data = {name: inputData['card-name'], info: inputData.info};
+  api.patchUser(data)
+    .then(() => userInfo.setUserInfo(data));
   popupEditProfileForm.close();
 }
 
@@ -102,3 +100,64 @@ buttonEditProfile.addEventListener("click", handleOpenProfilePopup);
 
 // Открытие popup Добавления карточки по нажатию кнопки
 buttonAddNewCard.addEventListener("click", handleOpenPopupAddNewCard);
+
+
+let cardsArray = [];
+let cardLists;
+
+// Получение данных с сервера
+api.getUser().then((data) => {
+  const { name, about, avatar} = data;
+  userInfo.setUserInfo({ name, info: about});
+  userInfo.setUserAvatar(avatar)
+})
+.catch((err) => console.log(err));
+
+api.getInitialCards().then((data) => {
+  cardsArray = data.map((item) => {
+    const {_id, name, link, likes, owner} = item;
+    return {
+      name, link, likes
+    }
+  })
+})
+.catch((err) => {
+  // В случае ошибки отрисовать начальный массив карточек
+  cardsArray = initialCards;
+  console.log(err);
+})
+.finally(() => {
+  // Добавление начальных карточек
+  cardLists = new Section({ 
+    items: cardsArray, 
+    renderer: (element) => {
+      createCard(element, 'append');
+    }
+  },
+  '.cards-grid__list');
+
+  cardLists.renderItems();
+});
+
+
+// fetch('https://mesto.nomoreparties.co/v1/cohort-73/cards', {
+//   method: 'GET',
+//   headers: {
+//     authorization: 'b407476d-bacf-462b-96a7-4f805139a2ff'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   }); 
+  
+// fetch('https://nomoreparties.co/v1/cohort-73/users/me', {
+//   method: 'GET',
+//   headers: {
+//     authorization: 'b407476d-bacf-462b-96a7-4f805139a2ff'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   }); 
