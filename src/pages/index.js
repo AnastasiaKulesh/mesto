@@ -36,11 +36,11 @@ formAddCardValidate.enableValidation();
 
 // Экземпляры классов для popup с формами ввода
 // Popup добавления карточки
-const popupAddCardForm = new PopupWithForm(".popup_type_add-card", handleAddNewCardFormSubmit);
+const popupAddCardForm = new PopupWithForm('.popup_type_add-card', handleAddNewCardFormSubmit);
 // Popup редактирования профиля
-const popupEditProfileForm = new PopupWithForm(".popup_type_editProfile", handleEditProfileFormSubmit);
+const popupEditProfileForm = new PopupWithForm('.popup_type_editProfile', handleEditProfileFormSubmit);
 // Popup удаления карточки 
-const popupDeleteCard = new PopupWithSubmit(".popup_type_delete-card");
+const popupDeleteCard = new PopupWithSubmit('.popup_type_delete-card');
 // Popup изменения данных профиля
 const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', handleEditAvatarFormSubmit)
 
@@ -50,7 +50,7 @@ popupDeleteCard.setEventListeners();
 popupEditAvatar.setEventListeners();
 
 // Экземпляр класса для popup с фотографией карточки
-const popupCardImage = new PopupWithImage(".popup-image");
+const popupCardImage = new PopupWithImage('.popup-image');
 popupCardImage.setEventListeners();
 
 
@@ -162,13 +162,13 @@ function changeLike(id, likes, isLiked, checkIsLiked) {
 
 
 // Открытие popupProfile по нажатию кнопки
-buttonEditProfile.addEventListener("click", handleOpenProfilePopup);
+buttonEditProfile.addEventListener('click', handleOpenProfilePopup);
 
 // Открытие popup Добавления карточки по нажатию кнопки
-buttonAddNewCard.addEventListener("click", handleOpenPopupAddNewCard);
+buttonAddNewCard.addEventListener('click', handleOpenPopupAddNewCard);
 
 // Открытие popup Редактирования аватара по нажатию кнопки
-buttonEditAvatar.addEventListener("click", handleOpenAvatarPopup);
+buttonEditAvatar.addEventListener('click', handleOpenAvatarPopup);
 
 
 let cardsArray = [];

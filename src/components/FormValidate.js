@@ -4,9 +4,12 @@ export default class FormValidate {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
-    console.log(this._formElement);
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    this._buttonSubmitElement = this._formElement.querySelector(this._config.buttonSubmitSelector);
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._config.inputSelector)
+    );
+    this._buttonSubmitElement = this._formElement.querySelector(
+      this._config.buttonSubmitSelector
+    );
   }
 
   // Метод добавления отображения ошибки input
@@ -69,7 +72,7 @@ export default class FormValidate {
   _setEventListener() {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(inputElement);;
+        this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });
     });
@@ -82,7 +85,6 @@ export default class FormValidate {
 
     this._toggleButtonState();
   }
-  
 
   // Поиск и перебор всех форм
   enableValidation() {
