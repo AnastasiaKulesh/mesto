@@ -5,6 +5,7 @@ export default class UserInfo {
         this._name = document.querySelector(nameSelector);
         this._info = document.querySelector(infoSelector);
         this._avatar = document.querySelector(avatarSelector);
+        this._userId = 0;
     }
 
     // Метод получения данных пользователя
@@ -26,5 +27,13 @@ export default class UserInfo {
 
     setUserAvatar(link) {
         this._avatar.src = link;
+    }
+
+    setUserId(id) { 
+        this._userId = id; 
+    }
+
+    getUserId() {
+        return this._userId;
     }
 }

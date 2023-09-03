@@ -6,11 +6,13 @@ export default class Api {
         this._headers = options.headers;
     }
 
+    // Метод разбора json запроса
     _handleResponse(res) {
         if (res.ok) return res.json();
         return Promise.reject(`STATUS: ${res.status} ${res.message}`);
     }
 
+    // Метод получения с сервера данных пользователя 
     getUser() {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
@@ -19,6 +21,7 @@ export default class Api {
             .then((res) => this._handleResponse(res));
     }
 
+    // Метод записи данных пользователя на сервер
     patchUser({name, info}) {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
@@ -31,6 +34,7 @@ export default class Api {
             .then((res) => this._handleResponse(res));
     }
 
+    // Метод получения с сервера данных карточек 
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
             method: 'GET',
@@ -39,6 +43,7 @@ export default class Api {
             .then((res) => this._handleResponse(res));
     }
 
+    // Метод добавления на сервер данных новой карточки 
     postNewCard({name, link}) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
@@ -46,6 +51,18 @@ export default class Api {
             body: JSON.stringify({
                 name: name,
                 link: link
+            })
+        })
+            .then((res) => this._handleResponse(res));
+    }
+
+// Метод записи на сервер изменения лайка
+    switchLikeCard(cardId, likes, isLiked) {
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
+            method: isLiked ? 'DELETE' : 'PUT',
+            headers: this._headers,
+            body: JSON.stringify({
+                likes
             })
         })
             .then((res) => this._handleResponse(res));
