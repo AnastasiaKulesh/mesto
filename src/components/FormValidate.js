@@ -1,7 +1,10 @@
+// Класс для валидации форм
+
 export default class FormValidate {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
+    console.log(this._formElement);
     this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
     this._buttonSubmitElement = this._formElement.querySelector(this._config.buttonSubmitSelector);
   }

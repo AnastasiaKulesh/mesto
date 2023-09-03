@@ -17,6 +17,7 @@ import {
   config,
   popupFormEditProfile,
   popupFormAddCard,
+  popupFormEditAvatar,
   buttonEditProfile,
   buttonAddNewCard,
   popupInfoInputName,
@@ -26,9 +27,11 @@ import {
 
 // Экземпляры классов для валидации форм
 const formEditProfileValidate = new FormValidate(config, popupFormEditProfile);
+const formEditAvatarValidate = new FormValidate(config, popupFormEditAvatar);
 const formAddCardValidate = new FormValidate(config, popupFormAddCard);
 
 formEditProfileValidate.enableValidation();
+formEditAvatarValidate.enableValidation();
 formAddCardValidate.enableValidation();
 
 // Экземпляры классов для popup с формами ввода
@@ -78,37 +81,52 @@ cardLists.addItem(card, position);
 
 // Функция submit для добавления карточек
 function handleAddNewCardFormSubmit(dataCard) {
-  // createCard(dataCard, "prepend");
+  popupAddCardForm.renderLoad(true, 'Сохранение...');
   api.postNewCard(dataCard)
     .then(() => createCard(dataCard, "prepend"))
     .catch((err) => console.log(`ERROR: ${err.status}`))
-  popupAddCardForm.close();
+    .finally(() => {
+      popupAddCardForm.close();
+      popupAddCardForm.renderLoad(false);
+    });
 }
 
 // Функция submit для изменения данных пользователя
 function handleEditProfileFormSubmit(inputData) {
+  popupEditProfileForm.renderLoad(true, 'Сохранение...');
   const data = {name: inputData['card-name'], info: inputData.info};
   api.patchUser(data)
-    .then(() => userInfo.setUserInfo(data));
-  popupEditProfileForm.close();
+    .then(() => userInfo.setUserInfo(data))
+    .finally(() => {
+      popupEditProfileForm.close();
+      popupEditProfileForm.renderLoad(false);
+    });
 }
 
 // Функция submit для изменения аватара пользователя
 function handleEditAvatarFormSubmit(inputData) {
+  popupEditAvatar.renderLoad(true, 'Сохранение...')
   api.patchEditAvatar(inputData)
-    .then((res) => userInfo.setUserAvatar(res.avatar));
-  popupEditAvatar.close();
+    .then((res) => userInfo.setUserAvatar(res.avatar))
+    .finally(() => {
+      popupEditAvatar.close();
+      popupEditAvatar.renderLoad(false);
+    });
 }
 
-// Функция submit для изменения данных пользователя
+// Функция submit для удаления карточки
 function handleCardDelete(cardId, cardTemplate) {
   popupDeleteCard.open();
   popupDeleteCard.handleFormSubmit(() => {
     api.deleteCard(cardId, cardTemplate)
       .then(() => {
+        popupDeleteCard.renderLoad(true, 'Удаление...');
         cardTemplate.remove();
-        popupDeleteCard.close();
       })
+      .finally(() => {
+        popupDeleteCard.close();
+        popupDeleteCard.renderLoad(false);
+      });
   })
 }
 
@@ -127,6 +145,12 @@ function handleOpenProfilePopup() {
   formEditProfileValidate.resetValidate();
 }
 
+// Функция открытия для редактирования popupAvatar
+function handleOpenAvatarPopup() {
+  popupEditAvatar.open();
+  formEditAvatarValidate.resetValidate();
+}
+
 // Функция добавления лайка карточки
 function changeLike(id, likes, isLiked, checkIsLiked) {
   api.switchLikeCard(id, likes, isLiked)
@@ -141,7 +165,7 @@ buttonEditProfile.addEventListener("click", handleOpenProfilePopup);
 buttonAddNewCard.addEventListener("click", handleOpenPopupAddNewCard);
 
 // Открытие popup Редактирования аватара по нажатию кнопки
-buttonEditAvatar.addEventListener("click", () => popupEditAvatar.open());
+buttonEditAvatar.addEventListener("click", handleOpenAvatarPopup);
 
 
 let cardsArray = [];
@@ -181,4 +205,3 @@ api.getInitialCards().then((data) => {
 
   cardLists.renderItems();
 });
-
