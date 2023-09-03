@@ -82,12 +82,15 @@ cardLists.addItem(card, position);
 // Функция submit для добавления карточек
 function handleAddNewCardFormSubmit(dataCard) {
   popupAddCardForm.renderLoad(true, 'Сохранение...');
+
   api.postNewCard(dataCard)
-    .then(() => createCard(dataCard, "prepend"))
-    .catch((err) => console.log(`ERROR: ${err.status}`))
+    .then((res) => {
+      createCard(res, 'prepend');
+    })
+    .catch((err) => console.log(`ERROR: ${err}`))
     .finally(() => {
-      popupAddCardForm.close();
       popupAddCardForm.renderLoad(false);
+      popupAddCardForm.close();
     });
 }
 

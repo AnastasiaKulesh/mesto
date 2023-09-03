@@ -23,7 +23,7 @@ export default class Card {
 
   // Метод получения id карточки
   getId() {
-    return this._id;
+    return this._id = data._id;
   }
     
   // Метод обновления количества лайков на странице
@@ -82,7 +82,7 @@ export default class Card {
     this._nameElement.textContent = this._name;
     this._linkElement.src = this._link;
     this._linkElement.alt = this._name;
-    this._likesElement.textContent = String(this._likes.length);
+    if (this._likes) this._likesElement.textContent = String(this._likes.length);
 
     this._userId = userId;
 
