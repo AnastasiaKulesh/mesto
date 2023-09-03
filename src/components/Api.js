@@ -18,7 +18,8 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         })
-            .then((res) => this._handleResponse(res));
+            .then((res) => this._handleResponse(res))
+            .catch((err) => console.log(`ERROR: ${err}`));
     }
 
     // Метод записи данных пользователя на сервер
@@ -31,7 +32,8 @@ export default class Api {
                 about: info
             })
         })
-            .then((res) => this._handleResponse(res));
+            .then((res) => this._handleResponse(res))
+            .catch((err) => console.log(`ERROR: ${err}`));
     }
     
     // Метод записи аватара пользователя на сервер
@@ -44,7 +46,8 @@ export default class Api {
                 avatar
             })
         })
-            .then((res) => this._handleResponse(res));
+            .then((res) => this._handleResponse(res))
+            .catch((err) => console.log(`ERROR: ${err}`));
     }
 
     // Метод получения с сервера данных карточек 
@@ -53,7 +56,8 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         })
-            .then((res) => this._handleResponse(res));
+            .then((res) => this._handleResponse(res))
+            .catch((err) => console.log(`ERROR: ${err}`));
     }
 
     // Метод добавления на сервер данных новой карточки 
@@ -66,7 +70,8 @@ export default class Api {
                 link: link
             })
         })
-            .then((res) => this._handleResponse(res));
+            .then((res) => this._handleResponse(res))
+            .catch((err) => console.log(`ERROR: ${err}`));
     }
 
     // Метод удаления карточки
@@ -75,7 +80,8 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers,
     })
-        .then((res) => this._handleResponse(res));
+        .then((res) => this._handleResponse(res))
+        .catch((err) => console.log(`ERROR: ${err}`));
     }
 
     // Метод записи на сервер изменения лайка
@@ -87,7 +93,8 @@ export default class Api {
                 likes
             })
         })
-            .then((res) => this._handleResponse(res));
+            .then((res) => this._handleResponse(res))
+            .catch((err) => console.log(`ERROR: ${err}`));
     }
 
 }
