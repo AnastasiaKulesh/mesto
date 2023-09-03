@@ -15,7 +15,8 @@
         </header>
         <main class="content">
             <section class="profile">
-                <div class="profile__avatar"></div>
+                <div class="profile__avatar">
+                    <img src="<%=require('./images/image.jpg')%>" alt="Аватар пользователя" titlе="Изменить аватар" class="profile__image">                </div>
                 <div class="profile__info">
                     <div class="profile__name-container">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -67,6 +68,20 @@
                         <span id="link-error" class="popup__error">Вы пропустили это поле.</span>
                     </label>
                     <button type="submit" class="button popup__button-save" title="Сохранить">Создать</button>
+                </form>
+                <button type="button" class="button popup__button-close" title="Закрыть"></button>
+            </div>
+        </div>
+        <div class="popup popup_type_edit-avatar">
+            <div class="popup__container">
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form name="editProfile" class="popup__form">
+                    <label class="popup__field">
+                        <input name="avatar" type="url" class="popup__input popup__input_type_name"
+                            placeholder="Ссылка на картинку" minlength="2" required>
+                        <span id="avatar-error" class="popup__error">Вы пропустили это поле.</span>
+                    </label>
+                    <button type="submit" class="button popup__button-save" title="Сохранить">Сохранить</button>
                 </form>
                 <button type="button" class="button popup__button-close" title="Закрыть"></button>
             </div>

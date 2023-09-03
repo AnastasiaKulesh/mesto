@@ -20,7 +20,8 @@ import {
   buttonEditProfile,
   buttonAddNewCard,
   popupInfoInputName,
-  popupInfoInputDescription
+  popupInfoInputDescription,
+  buttonEditAvatar
 } from '../utils/constants.js'
 
 // Экземпляры классов для валидации форм
@@ -37,11 +38,13 @@ const popupAddCardForm = new PopupWithForm(".popup_type_add-card", handleAddNewC
 const popupEditProfileForm = new PopupWithForm(".popup_type_editProfile", handleEditProfileFormSubmit);
 // Popup удаления карточки 
 const popupDeleteCard = new PopupWithSubmit(".popup_type_delete-card");
-
+// Popup изменения данных профиля
+const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', handleEditAvatarFormSubmit)
 
 popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
 popupDeleteCard.setEventListeners();
+popupEditAvatar.setEventListeners();
 
 // Экземпляр класса для popup с фотографией карточки
 const popupCardImage = new PopupWithImage(".popup-image");
@@ -52,7 +55,7 @@ popupCardImage.setEventListeners();
 const userInfo = new UserInfo({ 
   nameSelector: '.profile__name', 
   infoSelector: '.profile__description',
-  avatarSelector: '.profile__avatar' 
+  avatarSelector: '.profile__image' 
 })
 
 
@@ -88,6 +91,13 @@ function handleEditProfileFormSubmit(inputData) {
   api.patchUser(data)
     .then(() => userInfo.setUserInfo(data));
   popupEditProfileForm.close();
+}
+
+// Функция submit для изменения аватара пользователя
+function handleEditAvatarFormSubmit(inputData) {
+  api.patchEditAvatar(inputData)
+    .then((res) => userInfo.setUserAvatar(res.avatar));
+  popupEditAvatar.close();
 }
 
 // Функция submit для изменения данных пользователя
@@ -129,6 +139,9 @@ buttonEditProfile.addEventListener("click", handleOpenProfilePopup);
 
 // Открытие popup Добавления карточки по нажатию кнопки
 buttonAddNewCard.addEventListener("click", handleOpenPopupAddNewCard);
+
+// Открытие popup Редактирования аватара по нажатию кнопки
+buttonEditAvatar.addEventListener("click", () => popupEditAvatar.open());
 
 
 let cardsArray = [];

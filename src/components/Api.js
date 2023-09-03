@@ -33,6 +33,19 @@ export default class Api {
         })
             .then((res) => this._handleResponse(res));
     }
+    
+    // Метод записи аватара пользователя на сервер
+    patchEditAvatar({avatar}) {
+        console.log(avatar);
+        return fetch(`${this._url}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar
+            })
+        })
+            .then((res) => this._handleResponse(res));
+    }
 
     // Метод получения с сервера данных карточек 
     getInitialCards() {

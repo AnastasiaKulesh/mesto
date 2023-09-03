@@ -1,0 +1,11 @@
+.profile__button-edit_type_avatar {
+    border: none;
+    width: 120px;
+    height: 120px;
+    margin: 0;
+    padding: 0;
+    background-size: 26px;
+    z-index: 1;
+    position: absolute;
+    left: 0%;
+}

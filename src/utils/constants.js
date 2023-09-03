@@ -41,6 +41,7 @@ const page = document.querySelector('.page');
 const popupProfile = page.querySelector('.popup_type_editProfile');
 export const popupFormEditProfile = popupProfile.querySelector('[name="editProfileForm"]');
 export const buttonEditProfile = page.querySelector('.profile__button-edit');
+export const buttonEditAvatar = page.querySelector('.profile__image');
 
 export const popupInfoInputName = popupFormEditProfile.querySelector('.popup__input_type_name');
 export const popupInfoInputDescription = popupFormEditProfile.querySelector('.popup__input_type_description');
