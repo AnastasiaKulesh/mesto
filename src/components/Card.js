@@ -1,13 +1,15 @@
 // Класс создания карточки с текстом и ссылкой на изображение
 export default class Card {
-  constructor({ data, handleClick, handleLike }, templateSelector) {
+  constructor({ data, handleClick, handleLike, handleDelete }, templateSelector) {
     this._id = data._id;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._isLiked = false;
+    this._owner = data.owner;
     this._handleClick = handleClick;
     this._handleLike = handleLike;
+    this._handleDelete = handleDelete;
     this._templateSelector = templateSelector;
     this._userId = null;
     this._updateCountLikes = this._updateCountLikes.bind(this);
@@ -28,7 +30,6 @@ export default class Card {
   _updateCountLikes(currentLikes) {
     this._likesElement.textContent = String(currentLikes.likes.length);
   }
-    
 
   // Метод для изменения отображения лайка при нажатии
   _toggleStateLike() {
@@ -64,6 +65,10 @@ export default class Card {
     this._handleClick(popupImage);
   }
 
+  // Метод удаления карточки 
+  _deleteCard(card) {
+    card.remove();
+  }
   // Метод создания карточки
   createCard(userId) {
     this._cardCloneTemplate = this._getTemplate();
@@ -81,7 +86,12 @@ export default class Card {
 
     this._userId = userId;
 
-    this._checkIsLiked(userId);
+    // Управление отображением  кнопки "удалить"
+    (this._owner._id === this._userId) 
+      ? this._buttonDeleteElement.classList.add('card__button-trash_active')
+      : this._buttonDeleteElement.classList.remove('card__button-trash_active');
+  
+      this._checkIsLiked(userId);
 
     // Слушатель кнопки лайка
     this._likeButtonElement.addEventListener('click', () => {    
@@ -89,7 +99,7 @@ export default class Card {
     });
 
     // Слушатель кнопки удаления карточки
-    this._buttonDeleteElement.addEventListener('click', () => this._deleteCard());
+    this._buttonDeleteElement.addEventListener('click', () => this._handleDelete(this._id, this._cardCloneTemplate));
   
     // Слушатель кнопки открытия popup с фотографией карточки
     this._linkElement.addEventListener('click', () => this._handleClick(this._name, this._link));

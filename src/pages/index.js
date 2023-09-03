@@ -6,6 +6,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js'; 
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import UserInfo from '../components/UserInfo.js';
 import { 
   Api,
@@ -30,11 +31,17 @@ formEditProfileValidate.enableValidation();
 formAddCardValidate.enableValidation();
 
 // Экземпляры классов для popup с формами ввода
+// Popup добавления карточки
 const popupAddCardForm = new PopupWithForm(".popup_type_add-card", handleAddNewCardFormSubmit);
+// Popup редактирования профиля
 const popupEditProfileForm = new PopupWithForm(".popup_type_editProfile", handleEditProfileFormSubmit);
+// Popup удаления карточки 
+const popupDeleteCard = new PopupWithSubmit(".popup_type_delete-card");
+
 
 popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
+popupDeleteCard.setEventListeners();
 
 // Экземпляр класса для popup с фотографией карточки
 const popupCardImage = new PopupWithImage(".popup-image");
@@ -59,7 +66,8 @@ function createCard(dataCard, position = 'prepend') {;
   const card = new Card({
     data: dataCard, 
     handleClick: handleCardClick,
-    handleLike: changeLike
+    handleLike: changeLike,
+    handleDelete: handleCardDelete
   },
     '#card-template').createCard(userInfo.getUserId());
 cardLists.addItem(card, position);
@@ -80,6 +88,18 @@ function handleEditProfileFormSubmit(inputData) {
   api.patchUser(data)
     .then(() => userInfo.setUserInfo(data));
   popupEditProfileForm.close();
+}
+
+// Функция submit для изменения данных пользователя
+function handleCardDelete(cardId, cardTemplate) {
+  popupDeleteCard.open();
+  popupDeleteCard.handleFormSubmit(() => {
+    api.deleteCard(cardId, cardTemplate)
+      .then(() => {
+        cardTemplate.remove();
+        popupDeleteCard.close();
+      })
+  })
 }
 
 // Функция открытия popupAddCard
@@ -127,7 +147,7 @@ api.getInitialCards().then((data) => {
   cardsArray = data.map((item) => {
     const {_id, name, link, likes, owner} = item;
     return {
-      _id, name, link, likes
+      _id, name, link, likes, owner
     }
   })
 })
@@ -149,25 +169,3 @@ api.getInitialCards().then((data) => {
   cardLists.renderItems();
 });
 
-
-// fetch('https://mesto.nomoreparties.co/v1/cohort-73/cards', {
-//   method: 'GET',
-//   headers: {
-//     authorization: 'b407476d-bacf-462b-96a7-4f805139a2ff'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   }); 
-  
-// fetch('https://nomoreparties.co/v1/cohort-73/users/me', {
-//   method: 'GET',
-//   headers: {
-//     authorization: 'b407476d-bacf-462b-96a7-4f805139a2ff'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   }); 

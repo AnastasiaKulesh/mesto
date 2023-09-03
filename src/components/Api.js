@@ -56,7 +56,16 @@ export default class Api {
             .then((res) => this._handleResponse(res));
     }
 
-// Метод записи на сервер изменения лайка
+    // Метод удаления карточки
+    deleteCard(cardId) {
+        return fetch(`${this._url}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers,
+    })
+        .then((res) => this._handleResponse(res));
+    }
+
+    // Метод записи на сервер изменения лайка
     switchLikeCard(cardId, likes, isLiked) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: isLiked ? 'DELETE' : 'PUT',
