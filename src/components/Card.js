@@ -34,6 +34,7 @@ export default class Card {
   // Метод обновления количества лайков на странице
   _updateCountLikes(currentLikes) {
     this._likesElement.textContent = String(currentLikes.likes.length);
+    this._toggleStateLike();
   }
 
   // Метод для изменения отображения лайка при нажатии
@@ -43,7 +44,6 @@ export default class Card {
     } else {
       this._likeButtonElement.classList.remove("card__button-like_active");
     }
-    this._isLiked = !this._isLiked;
   }
 
   // Метод для проверки установленного лайка
@@ -57,20 +57,17 @@ export default class Card {
 
   // Метод управления отображением лайка на странице и отправка на сервер
   _updateLike() {
-    this._toggleStateLike();
     this._handleLike(
-      this._id,
-      this._likes,
-      this._isLiked,
-      this._updateCountLikes
+      this._id, 
+      this._isLiked, 
+      this._updateCountLikes 
     );
+    
+    this._isLiked = !this._isLiked;
   }
 
   // Метод открытия popup с фотографией карточки
   _openCardPopup() {
-    popupImageElementPhoto.src = this._link;
-    popupImageElementPhoto.alt = this._name;
-    popupImageNameElement.textContent = this._name;
     this._handleClick(popupImage);
   }
 
@@ -103,22 +100,25 @@ export default class Card {
       : this._buttonDeleteElement.classList.remove("card__button-trash_active");
 
     this._checkIsLiked(userId);
-
-    // Слушатель кнопки лайка
-    this._likeButtonElement.addEventListener("click", () => {
-      this._updateLike();
-    });
-
-    // Слушатель кнопки удаления карточки
-    this._buttonDeleteElement.addEventListener("click", () =>
-      this._handleDelete(this._id, this._cardCloneTemplate)
-    );
-
-    // Слушатель кнопки открытия popup с фотографией карточки
-    this._linkElement.addEventListener("click", () =>
-      this._handleClick(this._name, this._link)
-    );
+    this._setEventListeners();
 
     return this._cardCloneTemplate;
+  }
+
+  _setEventListeners() {
+        // Слушатель кнопки лайка
+        this._likeButtonElement.addEventListener("click", () => {
+          this._updateLike();
+        });
+    
+        // Слушатель кнопки удаления карточки
+        this._buttonDeleteElement.addEventListener("click", () =>
+          this._handleDelete(this._id, this._cardCloneTemplate)
+        );
+    
+        // Слушатель элемента для открытия popup с фотографией карточки
+        this._linkElement.addEventListener("click", () =>
+          this._handleClick(this._name, this._link)
+        );
   }
 }

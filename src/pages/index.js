@@ -76,7 +76,8 @@ function createCard(dataCard, position = 'prepend') {;
     handleDelete: handleCardDelete
   },
     '#card-template').createCard(userInfo.getUserId());
-cardLists.addItem(card, position);
+  
+    cardLists.addItem(card, position);
 }
 
 // Функция submit для добавления карточек
@@ -86,11 +87,11 @@ function handleAddNewCardFormSubmit(dataCard) {
   api.postNewCard(dataCard)
     .then((res) => {
       createCard(res, 'prepend');
+      popupAddCardForm.close();
     })
     .catch((err) => console.log(`ERROR: ${err}`))
     .finally(() => {
       popupAddCardForm.renderLoad(false);
-      popupAddCardForm.close();
     });
 }
 
@@ -99,9 +100,12 @@ function handleEditProfileFormSubmit(inputData) {
   popupEditProfileForm.renderLoad(true, 'Сохранение...');
   const data = {name: inputData['card-name'], info: inputData.info};
   api.patchUser(data)
-    .then(() => userInfo.setUserInfo(data))
-    .finally(() => {
+    .then(() => {
+      userInfo.setUserInfo(data);
       popupEditProfileForm.close();
+    })
+    .catch((err) => console.log(`ERROR: ${err}`))
+    .finally(() => {
       popupEditProfileForm.renderLoad(false);
     });
 }
@@ -110,9 +114,12 @@ function handleEditProfileFormSubmit(inputData) {
 function handleEditAvatarFormSubmit(inputData) {
   popupEditAvatar.renderLoad(true, 'Сохранение...')
   api.patchEditAvatar(inputData)
-    .then((res) => userInfo.setUserAvatar(res.avatar))
-    .finally(() => {
+    .then((res) => {
+      userInfo.setUserAvatar(res.avatar);
       popupEditAvatar.close();
+    })
+    .catch((err) => console.log(`ERROR: ${err}`))
+    .finally(() => {
       popupEditAvatar.renderLoad(false);
     });
 }
@@ -126,6 +133,7 @@ function handleCardDelete(cardId, cardTemplate) {
         popupDeleteCard.renderLoad(true, 'Удаление...');
         cardTemplate.remove();
       })
+      .catch((err) => console.log(`ERROR: ${err}`))
       .finally(() => {
         popupDeleteCard.close();
         popupDeleteCard.renderLoad(false);
@@ -155,9 +163,10 @@ function handleOpenAvatarPopup() {
 }
 
 // Функция добавления лайка карточки
-function changeLike(id, likes, isLiked, checkIsLiked) {
-  api.switchLikeCard(id, likes, isLiked)
-    .then((res) => checkIsLiked(res));
+function changeLike(id, isLiked, checkIsLiked) { 
+  api.switchLikeCard(id, isLiked) 
+    .then((res) => checkIsLiked(res))
+    .catch((err) => console.log(`ERROR: ${err}`));
 }
 
 
@@ -175,36 +184,36 @@ let cardsArray = [];
 let cardLists;
 
 // Получение данных с сервера
-api.getUser().then((data) => {
-  const { _id, name, about, avatar} = data;
-  userInfo.setUserInfo({ name, info: about});
-  userInfo.setUserAvatar(avatar);
-  userInfo.setUserId(_id);
-})
-.catch((err) => console.log(err));
+Promise.all([api.getUser(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    //Данные пользователя
+    const {_id, name, about, avatar} = userData;
+    userInfo.setUserInfo({ name, info: about});
+    userInfo.setUserAvatar(avatar);
+    userInfo.setUserId(_id);
 
-api.getInitialCards().then((data) => {
-  cardsArray = data.map((item) => {
-    const {_id, name, link, likes, owner} = item;
-    return {
-      _id, name, link, likes, owner
-    }
+    // Данные карточек
+    cardsArray = cards.map((item) => {
+      const {_id, name, link, likes, owner} = item;
+      return {
+        _id, name, link, likes, owner
+      }
+    })
   })
-})
-.catch((err) => {
-  // В случае ошибки отрисовать начальный массив карточек
-  cardsArray = initialCards;
-  console.log(err);
-})
-.finally(() => {
-  // Добавление начальных карточек
-  cardLists = new Section({ 
-    items: cardsArray, 
-    renderer: (element) => {
-      createCard(element, 'append');
-    }
-  },
-  '.cards-grid__list');
-
-  cardLists.renderItems();
-});
+  .catch((err) => {
+    // В случае ошибки отрисовать начальный массив карточек
+    cardsArray = initialCards;
+    console.log(`ERROR: ${err}`);
+  })
+  .finally(() => {
+    // Добавление начальных карточек
+    cardLists = new Section({ 
+      items: cardsArray, 
+      renderer: (element) => {
+        createCard(element, 'append');
+      }
+    },
+    '.cards-grid__list');
+  
+    cardLists.renderItems();
+  });

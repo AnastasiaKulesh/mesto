@@ -6,25 +6,27 @@ export default class Api {
     this._headers = options.headers;
   }
 
-  // Метод разбора json запроса
+   // Метод разбора json запроса
   _handleResponse(res) {
     if (res.ok) return res.json();
     return Promise.reject(`STATUS: ${res.status} ${res.message}`);
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._handleResponse)
+  }
+
   // Метод получения с сервера данных пользователя
   getUser() {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: 'GET',
       headers: this._headers,
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 
   // Метод записи данных пользователя на сервер
   patchUser({ name, info }) {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -32,36 +34,30 @@ export default class Api {
         about: info,
       }),
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 
   // Метод записи аватара пользователя на сервер
   patchEditAvatar({ avatar }) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return this._request(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar,
       }),
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 
   // Метод получения с сервера данных карточек
   getInitialCards() {
-    return fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: 'GET',
       headers: this._headers,
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 
   // Метод добавления на сервер данных новой карточки
   postNewCard({ name, link }) {
-    return fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -69,31 +65,22 @@ export default class Api {
         link: link,
       }),
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 
   // Метод удаления карточки
   deleteCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
+    return this._request(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 
   // Метод записи на сервер изменения лайка
-  switchLikeCard(cardId, likes, isLiked) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  switchLikeCard(cardId, isLiked) {
+    return this._request(`${this._url}/cards/${cardId}/likes`, {
       method: isLiked ? 'DELETE' : 'PUT',
-      headers: this._headers,
-      body: JSON.stringify({
-        likes,
-      }),
+      headers: this._headers
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`ERROR: ${err}`));
   }
 }
 
