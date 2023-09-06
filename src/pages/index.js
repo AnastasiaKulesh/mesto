@@ -128,14 +128,14 @@ function handleEditAvatarFormSubmit(inputData) {
 function handleCardDelete(cardId, cardTemplate) {
   popupDeleteCard.open();
   popupDeleteCard.handleFormSubmit(() => {
+    popupDeleteCard.renderLoad(true, 'Удаление...');
     api.deleteCard(cardId, cardTemplate)
       .then(() => {
-        popupDeleteCard.renderLoad(true, 'Удаление...');
         cardTemplate.remove();
+        popupDeleteCard.close();
       })
       .catch((err) => console.log(`ERROR: ${err}`))
       .finally(() => {
-        popupDeleteCard.close();
         popupDeleteCard.renderLoad(false);
       });
   })
